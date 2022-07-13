@@ -3,6 +3,7 @@ from flask_pymongo import PyMongo
 from pymongo import InsertOne
 from pymongo import MongoClient
 from flask import request
+import flask
 
 app = Flask(__name__)
 
