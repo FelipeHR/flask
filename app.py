@@ -45,11 +45,11 @@ def insert_gasto():
     return {'message': 'Gasto Insertado'}
 
 
-@app.route('/getGastosFecha', methods=['GET'])
-def get_gasto_fecha():
+@app.route('/getGastosFecha/<inicio>/<final>', methods=['GET'])
+def get_gasto_fecha(inicio, final):
     
-    fechaInicio = request.json['fechaInicio']
-    fechaFinal = request.json['fechaFinal']
+    fechaInicio = inicio
+    fechaFinal = final
 
     res = []
     datos = {}
@@ -82,10 +82,10 @@ def get_gasto_fecha():
     return datos
 
 
-@app.route('/getGastosDia', methods=['GET'])
-def get_gastos_dia():
+@app.route('/getGastosDia/<diaFecha>', methods=['GET'])
+def get_gastos_dia(diaFecha):
     
-    fecha = request.json["fecha"]
+    fecha = diaFecha
 
     res = []
     categorias = []
