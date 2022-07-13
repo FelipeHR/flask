@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from ctypes import sizeof
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -75,11 +76,12 @@ def getGastosFecha(inicio,final):
 
     return {'message':contenedor}
 
-
+#@app.route('/getGastosDia', methods=['GET'])
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
 def get_gastos_dia(diaFecha):
     
     fecha = diaFecha
+    #fecha = request.json['fecha']
 
     res = []
     categorias = []
@@ -88,7 +90,7 @@ def get_gastos_dia(diaFecha):
 
     total = 0
 
-    if fecha:
+    if col.find({"fecha": fecha}):
 
         #encuentra todas las categorias de los gastos de ese dia
         for documento in col.find({ 
@@ -163,15 +165,16 @@ def get_gastos_dia(diaFecha):
 
 
     else:
-        return {'message': 'ERROR!'}
+        datos = {'message': NULL}
+        return {'message': datos}
 
     return {'message': datos}
 
 '''
 if __name__ == "__main__":
     app.run(debug=True)
-
 '''
+
 if __name__ == "__main__":
     from waitress import serve
     serve(app, host="0.0.0.0", port=8080) 
