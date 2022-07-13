@@ -47,7 +47,7 @@ def insert_gasto():
     return {'message': 'Gasto Insertado'}
 
 
-@app.route('/getGastosFecha/', methods=['POST'])
+@app.route('/getGastosFecha', methods=['POST'])
 def getGastosFecha():
     
     #fechaInicio = inicio
