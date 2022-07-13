@@ -88,8 +88,8 @@ def get_gastos_dia(diaFecha):
     montosCategorias = []
 
     total = 0
-
-    if col.find({"fecha": fecha}):
+    #print(col.count_documents({"fecha": fecha}))
+    if col.count_documents({"fecha": fecha}):
 
         #encuentra todas las categorias de los gastos de ese dia
         for documento in col.find({ 
@@ -128,7 +128,7 @@ def get_gastos_dia(diaFecha):
         tuples = zip(*sorted_pairs)
         totalesCategorias, categorias = [ list(tuple) for tuple in  tuples]  
 
-        datos = {}
+        datos = []
 
         if(len(categorias) <= 4):
             #z tiene las 4 max categorias
@@ -137,8 +137,12 @@ def get_gastos_dia(diaFecha):
 
             for i in range(len(maxCategorias)):
                 
-                datos[maxCategorias[i]] = montosCategorias[i]
-                datos["categorias"] = maxCategorias
+                dict = {
+                    "categoria": maxCategorias[i],
+                    "monto": montosCategorias[i]
+                }
+
+                datos.append(dict)
 
         else:
             #se necesitan las ultimas 4 posiciones de z 
@@ -158,14 +162,17 @@ def get_gastos_dia(diaFecha):
             print(maxCategorias)
             print(montosCategorias)
             for i in range(len(maxCategorias)):
+                
+                dict = {
+                    "categoria": maxCategorias[i],
+                    "monto": montosCategorias[i]
+                }
 
-                datos[maxCategorias[i]] = montosCategorias[i]
-                datos["categorias"] = maxCategorias
+                datos.append(dict)
 
 
     else:
-        datos = {'message': ''}
-        return {'message': datos}
+        return {'message': ''}
 
     return {'message': datos}
 
