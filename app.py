@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from ctypes import sizeof
 from flask import Flask, jsonify
 from flask_cors import CORS
