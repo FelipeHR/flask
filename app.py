@@ -78,8 +78,10 @@ def get_gasto_fecha(inicio, final):
     print(request.json)
 
     datos = {"contenido": res}
+    
+    y = json.dumps(datos)
 
-    return datos
+    return y
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
