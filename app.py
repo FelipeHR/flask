@@ -137,6 +137,7 @@ def get_gastos_dia(diaFecha):
             for i in range(len(maxCategorias)):
                 
                 datos[maxCategorias[i]] = montosCategorias[i]
+                datos["categorias"] = maxCategorias
 
         else:
             #se necesitan las ultimas 4 posiciones de z 
@@ -158,6 +159,7 @@ def get_gastos_dia(diaFecha):
             for i in range(len(maxCategorias)):
 
                 datos[maxCategorias[i]] = montosCategorias[i]
+                datos["categorias"] = maxCategorias
 
 
     else:
