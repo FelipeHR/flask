@@ -165,7 +165,7 @@ def get_gastos_dia(diaFecha):
 
 
     else:
-        datos = {'message': NULL}
+        datos = {'message': ''}
         return {'message': datos}
 
     return {'message': datos}
