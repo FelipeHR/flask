@@ -47,14 +47,14 @@ def insert_gasto():
     return {'message': 'Gasto Insertado'}
 
 
-@app.route('/getGastosFecha/<inicio>/<final>', methods=["GET"])
+@app.route('/getGastosFecha/<inicio>/<final>')
 def getGastosFecha(inicio, final):
     
     fechaInicio = inicio
     fechaFinal = final
 
     datos = {}
-
+    """
     if fechaInicio and fechaFinal:
         contador = 0
         for documento in col.find({ 
@@ -74,7 +74,7 @@ def getGastosFecha(inicio, final):
 
     else:
         return jsonify({'message': 'ERROR!'})
-
+    """
     return jsonify({'message':'hola'})
 
 
