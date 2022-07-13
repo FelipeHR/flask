@@ -81,7 +81,7 @@ def get_gasto_fecha():
 
     return datos
 
-'''
+
 @app.route('/getGastosDia', methods=['GET'])
 def get_gastos_dia():
     
@@ -123,7 +123,7 @@ def get_gastos_dia():
 
             cat = documento["categoria"]
             index = categorias.index(cat)
-            totalesCategorias[index] = totalesCategorias[index] + documento["monto"]
+            totalesCategorias[index] = totalesCategorias[index] + int(documento["monto"])
 
         #z = [x for _, x in sorted(zip(totalesCategorias, categorias))]
 
@@ -141,8 +141,8 @@ def get_gastos_dia():
             montosCategorias = totalesCategorias
 
             for i in range(len(maxCategorias)):
-
-                datos[maxCategorias[i]].append(montosCategorias[i])
+                
+                datos[maxCategorias[i]] = montosCategorias[i]
 
         else:
             #se necesitan las ultimas 4 posiciones de z 
@@ -156,15 +156,15 @@ def get_gastos_dia():
             print(categorias)
             print(totalesCategorias)
 
-            maxCategorias.append("Otros")
+            maxCategorias.append("Varios")
             montosCategorias.append(suma)
 
             print(maxCategorias)
             print(montosCategorias)
             for i in range(len(maxCategorias)):
 
-                datos[maxCategorias[i]].append(montosCategorias[i])
-        
+                datos[maxCategorias[i]] = montosCategorias[i]
+
         y = json.dumps(datos)
 
     else:
@@ -172,7 +172,7 @@ def get_gastos_dia():
 
     print(y)
     return y
-'''
+
 '''
 if __name__ == "__main__":
     app.run(debug=True)
@@ -180,4 +180,4 @@ if __name__ == "__main__":
 '''
 if __name__ == "__main__":
     from waitress import serve
-    serve(app, host="0.0.0.0", port=8080)
+    serve(app, host="0.0.0.0", port=8080) 
