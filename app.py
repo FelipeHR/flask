@@ -46,7 +46,7 @@ def insert_gasto():
 
 
 @app.route('/getGastosFecha/<inicio>/<final>', methods=['GET'])
-def get_gasto_fecha(inicio, final):
+def getGastosFecha(inicio, final):
     
     fechaInicio = inicio
     fechaFinal = final
