@@ -159,13 +159,11 @@ def get_gastos_dia(diaFecha):
 
                 datos[maxCategorias[i]] = montosCategorias[i]
 
-        y = json.dumps(datos)
 
     else:
         return {'message': 'ERROR!'}
 
-    print(y)
-    return y
+    return {'message': datos}
 
 '''
 if __name__ == "__main__":
