@@ -71,10 +71,9 @@ def getGastosFecha(inicio, final):
             res.append(aux)
 
     else:
-        return {'message': 'ERROR!'}
+        return jsonify({'message': 'ERROR!'})
 
-    print (res)
-    return {"message": res}
+    return jsonify({"message": res})
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
