@@ -1,5 +1,6 @@
 from ctypes import sizeof
 from flask import Flask, jsonify
+from flask_cors import CORS
 from flask_pymongo import PyMongo
 from pymongo import InsertOne
 from pymongo import MongoClient
@@ -11,7 +12,7 @@ import flask
 app = Flask(__name__)
 
 app.config['MONGO_URI'] = 'mongodb+srv://Checho:2laSw16x9MUf2rAv@serverlessinstance0.wkk1z.mongodb.net/?retryWrites=true&w=majority'
-
+CORS(app)
 client = MongoClient('mongodb+srv://Checho:2laSw16x9MUf2rAv@serverlessinstance0.wkk1z.mongodb.net/?retryWrites=true&w=majority')
 
 db = client['MaxSave']
