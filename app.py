@@ -51,7 +51,7 @@ def insert_gasto():
 def getGastosFecha():
     
     fechaInicio = request.json['inicio']
-    fechaFinal = request.json['final']
+    fechaFinal = request.json['fin']
 
     datos = {}
 
