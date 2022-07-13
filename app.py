@@ -1,8 +1,11 @@
+from ctypes import sizeof
 from flask import Flask
 from flask_pymongo import PyMongo
 from pymongo import InsertOne
 from pymongo import MongoClient
 from flask import request
+import json
+
 import flask
 
 app = Flask(__name__)
@@ -40,15 +43,135 @@ def insert_gasto():
 
     print(request.json)
     return {'message': 'Gasto Insertado'}
-'''
+
+
 @app.route('/getGastosFecha', methods=['GET'])
-def get_gasto_fecha(data):
+def get_gasto_fecha():
     
-    if data:
+    fechaInicio = request.json['fechaInicio']
+    fechaFinal = request.json['fechaFinal']
+
+    res = []
+    datos = {}
+
+    if fechaInicio and fechaFinal:
+
+        for documento in col.find({ 
+
+            "fecha": {"$gte": fechaInicio, "$lte": fechaFinal}
+
+        }):
+            print (documento)
+
+            aux = {
+                "monto": documento["monto"],
+                "fecha": documento["fecha"],
+                "categoria": documento["categoria"],
+                "descripcion": documento["descripcion"]
+            }
+            res.append(aux)
+
     else:
         return {'message': 'ERROR!'}
+
+
     print(request.json)
-    return {'message': 'Gastos Encontrados'}
+
+    datos = {"contenido": res}
+
+    return datos
+
+'''
+@app.route('/getGastosDia', methods=['GET'])
+def get_gastos_dia():
+    
+    fecha = request.json["fecha"]
+
+    res = []
+    categorias = []
+    maxCategorias = []
+    montosCategorias = []
+
+    total = 0
+
+    if fecha:
+
+        #encuentra todas las categorias de los gastos de ese dia
+        for documento in col.find({ 
+
+            "fecha": fecha
+
+        }).distinct("categoria"):
+            print(documento)
+            categorias.append(documento)
+
+        #crea lista de totales para cada categoria del dia
+        totalesCategorias = [*range(len(categorias))]
+
+        for i in range(len(totalesCategorias)):
+            totalesCategorias[i] = 0
+
+        #encuentra todos los gastos del dia y suma los montos
+        for documento in col.find({ 
+
+            "fecha": fecha
+
+        }):
+            print (documento)
+            res.append(documento)
+            total = total + int(documento["monto"])
+
+            cat = documento["categoria"]
+            index = categorias.index(cat)
+            totalesCategorias[index] = totalesCategorias[index] + documento["monto"]
+
+        #z = [x for _, x in sorted(zip(totalesCategorias, categorias))]
+
+        zipped_lists = zip(totalesCategorias, categorias)
+        sorted_pairs = sorted(zipped_lists)
+
+        tuples = zip(*sorted_pairs)
+        totalesCategorias, categorias = [ list(tuple) for tuple in  tuples]  
+
+        datos = {}
+
+        if(len(categorias) <= 4):
+            #z tiene las 4 max categorias
+            maxCategorias = categorias
+            montosCategorias = totalesCategorias
+
+            for i in range(len(maxCategorias)):
+
+                datos[maxCategorias[i]].append(montosCategorias[i])
+
+        else:
+            #se necesitan las ultimas 4 posiciones de z 
+            maxCategorias = categorias[-4:]
+            montosCategorias = totalesCategorias[-4:]
+            suma = 0
+            for i in range(len(totalesCategorias)):
+                 if(i < len(totalesCategorias) - 4):
+                    suma = suma + totalesCategorias[i]
+
+            print(categorias)
+            print(totalesCategorias)
+
+            maxCategorias.append("Otros")
+            montosCategorias.append(suma)
+
+            print(maxCategorias)
+            print(montosCategorias)
+            for i in range(len(maxCategorias)):
+
+                datos[maxCategorias[i]].append(montosCategorias[i])
+        
+        y = json.dumps(datos)
+
+    else:
+        return {'message': 'ERROR!'}
+
+    print(y)
+    return y
 '''
 '''
 if __name__ == "__main__":
