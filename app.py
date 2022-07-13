@@ -75,7 +75,7 @@ def get_gasto_fecha(inicio, final):
         return {'message': 'ERROR!'}
 
 
-    return jsonify(res)
+    return jsonify({"message": res})
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
