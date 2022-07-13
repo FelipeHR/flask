@@ -50,11 +50,11 @@ def insert_gasto():
 @app.route('/getGastosFecha', methods=['POST'])
 def getGastosFecha():
     
-    #fechaInicio = inicio
-    #fechaFinal = final
+    fechaInicio = request.json['inicio']
+    fechaFinal = request.json['final']
 
     datos = {}
-    """
+
     if fechaInicio and fechaFinal:
         contador = 0
         for documento in col.find({ 
@@ -74,8 +74,8 @@ def getGastosFecha():
 
     else:
         return jsonify({'message': 'ERROR!'})
-    """
-    return {'message':'hola'}
+
+    return {'message':datos}
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
