@@ -51,11 +51,10 @@ def getGastosFecha(inicio, final):
     fechaInicio = inicio
     fechaFinal = final
 
-    res = []
     datos = {}
 
     if fechaInicio and fechaFinal:
-
+        contador = 0
         for documento in col.find({ 
 
             "fecha": {"$gte": fechaInicio, "$lte": fechaFinal}
@@ -68,12 +67,13 @@ def getGastosFecha(inicio, final):
                 "categoria": documento["categoria"],
                 "descripcion": documento["descripcion"]
             }
-            res.append(aux)
+            datos["gasto "+str(contador)] = aux
+            contador += 1
 
     else:
         return jsonify({'message': 'ERROR!'})
 
-    return jsonify({"message": res})
+    return jsonify(datos)
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
