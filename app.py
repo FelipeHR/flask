@@ -61,7 +61,6 @@ def get_gasto_fecha(inicio, final):
             "fecha": {"$gte": fechaInicio, "$lte": fechaFinal}
 
         }):
-            print (documento)
 
             aux = {
                 "monto": documento["monto"],
@@ -74,7 +73,7 @@ def get_gasto_fecha(inicio, final):
     else:
         return {'message': 'ERROR!'}
 
-
+    print (res)
     return jsonify({"message": res})
 
 
