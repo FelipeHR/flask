@@ -81,6 +81,11 @@ def get_gasto_fecha(inicio, final):
     
     y = json.dumps(datos)
 
+<<<<<<< Updated upstream
+=======
+    y = json.dumps(datos)
+
+>>>>>>> Stashed changes
     return y
 
 
