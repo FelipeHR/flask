@@ -1,6 +1,7 @@
 from ctypes import sizeof
 from flask import Flask, jsonify
 from flask_cors import CORS
+
 from flask_pymongo import PyMongo
 from pymongo import InsertOne
 from pymongo import MongoClient
@@ -74,7 +75,7 @@ def getGastosFecha(inicio, final):
     else:
         return jsonify({'message': 'ERROR!'})
 
-    return jsonify({"message":datos})
+    return jsonify({"message":"datos"})
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
