@@ -47,11 +47,11 @@ def insert_gasto():
     return {'message': 'Gasto Insertado'}
 
 
-@app.route('/getGastosFecha/<inicio>/<final>')
-def getGastosFecha(inicio, final):
+@app.route('/getGastosFecha/', methods=['POST'])
+def getGastosFecha():
     
-    fechaInicio = inicio
-    fechaFinal = final
+    #fechaInicio = inicio
+    #fechaFinal = final
 
     datos = {}
     """
@@ -75,7 +75,7 @@ def getGastosFecha(inicio, final):
     else:
         return jsonify({'message': 'ERROR!'})
     """
-    return jsonify({'message':'hola'})
+    return {'message':'hola'}
 
 
 @app.route('/getGastosDia/<diaFecha>', methods=['GET'])
